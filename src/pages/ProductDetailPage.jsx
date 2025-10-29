@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProduct } from '../services/productService';
 import { AuthContext } from '../context/AuthContext';
+import { CartContext } from '../context/CartContext';
 import Loading from '../components/common/Loading';
 import ErrorMessage from '../components/common/ErrorMessage';
 
@@ -9,36 +10,48 @@ const ProductDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const { addToCart, isInCart, getItemQuantity } = useContext(CartContext);
+
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [quantity, setQuantity] = useState(1);
-  
+  const [showSuccess, setShowSuccess] = useState(false);
+
   useEffect(() => {
     loadProduct();
   }, [id]);
-  
+
   const loadProduct = async () => {
     try {
       const data = await getProduct(id);
       setProduct(data);
     } catch (err) {
-      setError('Product not found');
       console.error(err);
+      setError('Product not found');
     } finally {
       setLoading(false);
     }
   };
-  
+
   const handleAddToCart = () => {
-    // Cart Context
-    alert(`Added ${quantity} ${product.name} to cart!`);
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
+    addToCart(product, quantity);
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 3000);
   };
-  
+
   if (loading) return <Loading />;
   if (error) return <ErrorMessage message={error} />;
   if (!product) return <ErrorMessage message="Product not found" />;
-  
+
+  const itemInCart = isInCart(product.id);
+  const currentCartQuantity = getItemQuantity(product.id);
+
   return (
     <div className="container mx-auto px-4 py-8">
       <button 
@@ -47,7 +60,7 @@ const ProductDetailPage = () => {
       >
         ← Back to Products
       </button>
-      
+
       <div className="grid md:grid-cols-2 gap-8">
         <div>
           <img 
@@ -59,15 +72,15 @@ const ProductDetailPage = () => {
 
         <div>
           <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-          
+
           {product.category_name && (
             <span className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded mb-4">
               {product.category_name}
             </span>
           )}
-          
+
           <p className="text-4xl font-bold text-blue-600 mb-4">${product.price}</p>
-          
+
           <div className="mb-4">
             <p className="text-sm text-gray-600">SKU: {product.sku}</p>
             <p className="text-sm text-gray-600">Seller: {product.user_username}</p>
@@ -92,40 +105,54 @@ const ProductDetailPage = () => {
             <p className="text-gray-700">{product.description}</p>
           </div>
 
+          {showSuccess && (
+            <div className="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+              ✓ Added to cart successfully!
+            </div>
+          )}
+
           {product.is_in_stock && (
-            <div className="flex gap-4 items-center">
-              <div>
-                <label className="block text-sm font-medium mb-2">Quantity</label>
-                <input
-                  type="number"
-                  min="1"
-                  max={product.stock_quantity}
-                  value={quantity}
-                  onChange={(e) => setQuantity(Math.max(1, Math.min(product.stock_quantity, parseInt(e.target.value) || 1)))}
-                  className="w-20 p-2 border rounded"
-                />
-              </div>
+            <div>
+              {itemInCart && (
+                <p className="text-sm text-green-600 mb-2">
+                  ✓ {currentCartQuantity} in cart
+                </p>
+              )}
               
-              <button
-                onClick={handleAddToCart}
-                className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition font-semibold"
-              >
-                Add to Cart
-              </button>
+              <div className="flex gap-4 items-center">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Quantity</label>
+                  <input
+                    type="number"
+                    min="1"
+                    max={product.stock_quantity - currentCartQuantity}
+                    value={quantity}
+                    onChange={(e) => setQuantity(
+                      Math.max(1, Math.min(product.stock_quantity - currentCartQuantity, parseInt(e.target.value) || 1))
+                    )}
+                    className="w-20 p-2 border rounded"
+                  />
+                </div>
+                
+                <button
+                  onClick={handleAddToCart}
+                  className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition font-semibold"
+                >
+                  {itemInCart ? 'Add More to Cart' : 'Add to Cart'}
+                </button>
+              </div>
             </div>
           )}
 
           {user && (user.id === product.user || user.is_staff) && (
             <div className="mt-6 p-4 bg-yellow-50 rounded border border-yellow-200">
               <p className="text-sm font-semibold mb-2">Owner Actions</p>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => navigate(`/admin/products/${product.id}/edit`)}
-                  className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700"
-                >
-                  Edit Product
-                </button>
-              </div>
+              <button
+                onClick={() => navigate(`/admin/products/${product.id}/edit`)}
+                className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700"
+              >
+                Edit Product
+              </button>
             </div>
           )}
         </div>
