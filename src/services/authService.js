@@ -29,14 +29,14 @@ export const getProfile = async () => {
 
 export const refreshAccessToken = async () => {
   const refresh = localStorage.getItem('refresh');
-  if (!refresh) throw new Error('No refresh token found');
+  if (!refresh) throw new Error('No refresh access found');
 
   try {
-    const res = await axios.post(`${BASE_URL}/auth/token/refresh/`, { refresh });
+    const res = await axios.post(`${BASE_URL}/auth/access/refresh/`, { refresh });
     localStorage.setItem('access', res.data.access);
     return res.data.access;
   } catch (error) {
-    console.error('Refresh token failed:', error.response?.data || error.message);
+    console.error('Refresh access failed:', error.response?.data || error.message);
     logout();
     throw error;
   }
