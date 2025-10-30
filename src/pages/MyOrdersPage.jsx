@@ -35,8 +35,7 @@ const MyOrdersPage = () => {
       <h1 className="text-3xl font-bold mb-6">My Orders</h1>
       
       {error && <ErrorMessage message={error} />}
-      
-      {/* Status Filter */}
+
       <div className="mb-6">
         <label className="block text-sm font-medium mb-2">Filter by Status</label>
         <select
