@@ -15,7 +15,13 @@ const Navbar = () => {
         
         <div className="flex gap-6 items-center">
           <Link to="/products" className="hover:text-blue-200">Products</Link>
-          
+
+          {user && user.is_staff && (
+            <Link to="/admin/dashboard" className="hover:text-blue-200">
+              Admin
+            </Link>
+          )}
+
           {user && (
             <>
               <Link to="/orders" className="hover:text-blue-200">My Orders</Link>

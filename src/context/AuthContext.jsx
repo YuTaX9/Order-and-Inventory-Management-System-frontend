@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
         const userData = await getProfile();
         setUser(userData);
       } catch (error) {
-        localStorage.removeItem('token');
+        localStorage.removeItem('access');
       }
     }
     setLoading(false);

@@ -3,6 +3,11 @@ import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import Navbar from './components/common/Navbar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import AdminRoute from './components/auth/AdminRoute';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import ManageProductsPage from './pages/admin/ManageProductsPage';
+import CreateProductPage from './pages/admin/CreateProductPage';
+import EditProductPage from './pages/admin/EditProductPage';
 import CartPage from './pages/CartPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -45,6 +50,26 @@ function App() {
               <ProtectedRoute>
                 <OrderDetailPage />
               </ProtectedRoute>
+            } />
+          <Route path="/admin/dashboard" element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+            } />
+          <Route path="/admin/products" element={
+            <AdminRoute>
+              <ManageProductsPage />
+            </AdminRoute>
+            } />
+          <Route path="/admin/products/new" element={
+            <AdminRoute>
+              <CreateProductPage />
+            </AdminRoute>
+            } />
+          <Route path="/admin/products/:id/edit" element={
+            <AdminRoute>
+              <EditProductPage />
+            </AdminRoute>
             } />
         </Routes>
       </BrowserRouter>
