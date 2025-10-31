@@ -8,6 +8,8 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import ManageProductsPage from './pages/admin/ManageProductsPage';
 import CreateProductPage from './pages/admin/CreateProductPage';
 import EditProductPage from './pages/admin/EditProductPage';
+import ManageOrdersPage from './pages/admin/ManageOrdersPage';
+import InventoryPage from './pages/admin/InventoryPage';
 import CartPage from './pages/CartPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -69,6 +71,16 @@ function App() {
           <Route path="/admin/products/:id/edit" element={
             <AdminRoute>
               <EditProductPage />
+            </AdminRoute>
+            } />
+          <Route path="/admin/orders" element={
+            <AdminRoute>
+              <ManageOrdersPage />
+            </AdminRoute>
+            } />
+          <Route path="/admin/inventory" element={
+            <AdminRoute>
+              <InventoryPage />
             </AdminRoute>
             } />
         </Routes>
