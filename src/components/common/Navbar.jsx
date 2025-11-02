@@ -133,6 +133,9 @@ const Navbar = () => {
                     <p className="font-medium text-gray-900">{user.username}</p>
                     <p className="text-xs text-gray-500">{user.email}</p>
                   </div>
+                  <Link to="/profile" className="nav-px-4 py-2 hover:bg-gray-50 rounded-lg">
+                    My Profile
+                  </Link>
                   <button onClick={handleLogout} className="mx-4 btn btn-danger">
                     Logout
                   </button>
