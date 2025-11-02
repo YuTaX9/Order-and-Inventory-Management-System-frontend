@@ -19,7 +19,8 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import CheckoutPage from './pages/CheckoutPage';
 import MyOrdersPage from './pages/MyOrdersPage';
 import OrderDetailPage from './pages/OrderDetailPage';
-import './styles/global.css'
+import Footer from './components/common/Footer';
+import ManageCategoriesPage from './pages/admin/ManageCategoriesPage';
 
 function App() {
   return (
@@ -83,7 +84,13 @@ function App() {
               <InventoryPage />
             </AdminRoute>
             } />
+          <Route path="/admin/categories" element={
+            <AdminRoute>
+              <ManageCategoriesPage />
+            </AdminRoute>
+            } />
         </Routes>
+        <Footer/>
       </BrowserRouter>
       </CartProvider>
     </AuthProvider>

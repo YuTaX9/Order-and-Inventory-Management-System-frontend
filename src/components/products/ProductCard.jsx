@@ -2,41 +2,62 @@ import { Link } from 'react-router-dom';
 
 const ProductCard = ({ product }) => {
   return (
-    <div className="border rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow">
-      <img 
-        src={product.image_url || 'https://via.placeholder.com/300'} 
-        alt={product.name}
-        className="w-full h-48 object-cover"
-      />
-      <div className="p-4">
-        <h3 className="text-lg font-semibold mb-2 truncate">{product.name}</h3>
-        <p className="text-gray-600 text-sm mb-2 line-clamp-2">{product.description}</p>
-        
-        <div className="flex justify-between items-center mb-3">
-          <span className="text-2xl font-bold text-blue-600">${product.price}</span>
-          {product.category_name && (
-            <span className="bg-gray-200 px-2 py-1 rounded text-xs">
-              {product.category_name}
-            </span>
-          )}
-        </div>
-        
-        <div className="mb-3">
+    <div className="card card-hover group">
+      <div className="relative overflow-hidden rounded-lg mb-4 bg-gray-100">
+        <img 
+          src={product.image_url || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400'} 
+          alt={product.name}
+          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+        />
+
+        {product.category_name && (
+          <span className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-gray-700">
+            {product.category_name}
+          </span>
+        )}
+
+        <div className="absolute bottom-2 left-2">
           {product.is_in_stock ? (
-            <span className="text-green-600 text-sm">
-              ✓ In Stock ({product.stock_quantity})
-            </span>
+            product.is_low_stock ? (
+              <span className="badge badge-warning">
+                ⚠️ Low Stock
+              </span>
+            ) : (
+              <span className="badge badge-success">
+                ✓ In Stock
+              </span>
+            )
           ) : (
-            <span className="text-red-600 text-sm">✗ Out of Stock</span>
-          )}
-          {product.is_low_stock && product.is_in_stock && (
-            <span className="text-orange-500 text-xs ml-2">⚠ Low Stock</span>
+            <span className="badge badge-danger">
+              ✗ Out of Stock
+            </span>
           )}
         </div>
+      </div>
+
+      <div className="flex-1">
+        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition">
+          {product.name}
+        </h3>
         
+        <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+          {product.description}
+        </p>
+
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <span className="text-2xl font-bold text-primary-600">
+              ${parseFloat(product.price).toFixed(2)}
+            </span>
+          </div>
+          <div className="text-sm text-gray-500">
+            {product.stock_quantity} units
+          </div>
+        </div>
+
         <Link 
           to={`/products/${product.id}`}
-          className="block w-full bg-blue-600 text-white text-center py-2 rounded hover:bg-blue-700 transition"
+          className="block w-full btn btn-primary text-center"
         >
           View Details
         </Link>
