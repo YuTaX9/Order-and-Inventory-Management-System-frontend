@@ -16,10 +16,11 @@ const HomePage = () => {
 
   const loadFeaturedProducts = async () => {
     try {
+      // جلب آخر 8 منتجات تم إنشاؤها
       const data = await getAllProducts({ ordering: '-created_at' });
       setFeaturedProducts(data.slice(0, 8));
     } catch (error) {
-      console.error(error);
+      console.error("Error loading featured products:", error);
     } finally {
       setLoading(false);
     }
@@ -27,7 +28,6 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen">
-      {/* القسم الأول (Hero) */}
       <section 
         className="bg-gray-900 text-white relative overflow-hidden"
         style={{
@@ -36,7 +36,6 @@ const HomePage = () => {
           backgroundRepeat: 'repeat',
         }}
       >
-        {/* تم حذف الـ div الذي كان يحتوي على الشعار (Logo) */}
         
         <div className="container mx-auto px-4 py-20 md:py-32 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
@@ -116,15 +115,46 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* قسم المنتجات المميزة الجديد */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            Latest <span className="text-gradient">Products</span>
+          </h2>
+
+          {loading ? (
+            <Loading /> // عرض مؤشر التحميل أثناء جلب المنتجات
+          ) : featuredProducts.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+              {featuredProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-gray-600 text-lg">
+              No featured products available at the moment.
+            </p>
+          )}
+          
+          <div className="text-center mt-12">
+            <Link 
+              to="/products"
+              className="btn btn-primary-outline"
+            >
+              View All Products
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section 
-        // ✅ القسم السفلي (Ready to Get Started?) بنفس خلفية الشبكة
-        className="py-16 bg-gray-900 text-white relative overflow-hidden" 
-        style={{
-          backgroundImage: `url(${heroPattern})`, 
-          backgroundSize: '1500px 1500px', // حافظ على نفس الحجم لتوحيد النمط
-          backgroundRepeat: 'repeat',
-        }}
-      >
+        className="py-16 bg-gray-900 text-white relative overflow-hidden" 
+        style={{
+          backgroundImage: `url(${heroPattern})`, 
+          backgroundSize: '1500px 1500px',
+          backgroundRepeat: 'repeat',
+        }}
+      >
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Ready to Get Started?

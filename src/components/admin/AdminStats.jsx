@@ -11,7 +11,7 @@ const AdminStats = ({ stats }) => {
       </div>
     </div>
   );
-  
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       <StatCard
@@ -20,7 +20,7 @@ const AdminStats = ({ stats }) => {
         icon="📦"
         color="border-blue-500"
       />
-      
+
       <StatCard
         title="Total Orders"
         value={stats.total_orders}
@@ -28,7 +28,7 @@ const AdminStats = ({ stats }) => {
         color="border-green-500"
         subtitle={`${stats.orders_by_status.pending} pending`}
       />
-      
+
       <StatCard
         title="Total Revenue"
         value={`$${parseFloat(stats.total_revenue).toFixed(2)}`}
@@ -36,7 +36,7 @@ const AdminStats = ({ stats }) => {
         color="border-yellow-500"
         subtitle="From delivered orders"
       />
-      
+
       <StatCard
         title="Low Stock Alerts"
         value={stats.low_stock_count}

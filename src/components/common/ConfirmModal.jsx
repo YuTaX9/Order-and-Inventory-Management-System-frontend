@@ -1,6 +1,15 @@
-const ConfirmModal = ({ isOpen, title, message, onConfirm, onCancel, confirmText = 'Confirm', cancelText = 'Cancel', danger = false }) => {
+const ConfirmModal = ({
+  isOpen,
+  title,
+  message,
+  onConfirm,
+  onCancel,
+  confirmText = "Confirm",
+  cancelText = "Cancel",
+  danger = false,
+}) => {
   if (!isOpen) return null;
-  
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
@@ -16,7 +25,9 @@ const ConfirmModal = ({ isOpen, title, message, onConfirm, onCancel, confirmText
           <button
             onClick={onConfirm}
             className={`px-4 py-2 rounded text-white ${
-              danger ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700'
+              danger
+                ? "bg-red-600 hover:bg-red-700"
+                : "bg-blue-600 hover:bg-blue-700"
             }`}
           >
             {confirmText}

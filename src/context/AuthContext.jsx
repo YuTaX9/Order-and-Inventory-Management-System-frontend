@@ -1,5 +1,9 @@
-import { createContext, useState, useEffect } from 'react';
-import { login as loginService, logout as logoutService, getProfile } from '../services/authService';
+import { createContext, useState, useEffect } from "react";
+import {
+  login as loginService,
+  logout as logoutService,
+  getProfile,
+} from "../services/authService";
 
 export const AuthContext = createContext();
 
@@ -12,13 +16,13 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const checkAuth = async () => {
-    const token = localStorage.getItem('access');
+    const token = localStorage.getItem("access");
     if (token) {
       try {
         const userData = await getProfile();
         setUser(userData);
       } catch (error) {
-        localStorage.removeItem('access');
+        localStorage.removeItem("access");
       }
     }
     setLoading(false);
@@ -39,7 +43,6 @@ export const AuthProvider = ({ children }) => {
   if (loading) return <div className="text-center mt-10">Loading...</div>;
 
   return (
-    
     <AuthContext.Provider value={{ user, loading, login, logout }}>
       {children}
     </AuthContext.Provider>

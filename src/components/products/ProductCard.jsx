@@ -1,11 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   return (
     <div className="card card-hover group">
       <div className="relative overflow-hidden rounded-lg mb-4 bg-gray-100">
-        <img 
-          src={product.image_url || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400'} 
+        <img
+          src={
+            product.image_url ||
+            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400"
+          }
           alt={product.name}
           className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
         />
@@ -19,18 +22,12 @@ const ProductCard = ({ product }) => {
         <div className="absolute bottom-2 left-2">
           {product.is_in_stock ? (
             product.is_low_stock ? (
-              <span className="badge badge-warning">
-                ⚠️ Low Stock
-              </span>
+              <span className="badge badge-warning">⚠️ Low Stock</span>
             ) : (
-              <span className="badge badge-success">
-                ✓ In Stock
-              </span>
+              <span className="badge badge-success">✓ In Stock</span>
             )
           ) : (
-            <span className="badge badge-danger">
-              ✗ Out of Stock
-            </span>
+            <span className="badge badge-danger">✗ Out of Stock</span>
           )}
         </div>
       </div>
@@ -39,7 +36,7 @@ const ProductCard = ({ product }) => {
         <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition">
           {product.name}
         </h3>
-        
+
         <p className="text-gray-600 text-sm mb-3 line-clamp-2">
           {product.description}
         </p>
@@ -55,7 +52,7 @@ const ProductCard = ({ product }) => {
           </div>
         </div>
 
-        <Link 
+        <Link
           to={`/products/${product.id}`}
           className="block w-full btn btn-primary text-center"
         >
