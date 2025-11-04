@@ -7,7 +7,7 @@ const ProductCard = ({ product }) => {
         <img
           src={
             product.image_url ||
-            "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400"
+            "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
           }
           alt={product.name}
           className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"

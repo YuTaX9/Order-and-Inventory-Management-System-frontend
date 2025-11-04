@@ -11,6 +11,7 @@ import CreateProductPage from './pages/admin/CreateProductPage';
 import EditProductPage from './pages/admin/EditProductPage';
 import ManageOrdersPage from './pages/admin/ManageOrdersPage';
 import InventoryPage from './pages/admin/InventoryPage';
+import AdminShippingZonesPage from './pages/admin/AdminShippingZonesPage'; 
 import CartPage from './pages/CartPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -103,6 +104,12 @@ function App() {
           <Route path="/admin/categories" element={
             <AdminRoute>
               <ManageCategoriesPage />
+            </AdminRoute>
+            } />
+          {/* 👈 المسار الجديد لإدارة مناطق الشحن */}
+          <Route path="/admin/shipping-zones" element={
+            <AdminRoute>
+              <AdminShippingZonesPage />
             </AdminRoute>
             } />
         </Routes>

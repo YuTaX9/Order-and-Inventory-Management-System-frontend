@@ -1,7 +1,5 @@
-// src/services/categoryService.js
 import api from './api';
 
-// Get all categories
 export const getAllCategories = async () => {
   const response = await api.get('/categories/');
   return response.data;
@@ -13,7 +11,6 @@ export const getCategory = async (id) => {
   return response.data;
 };
 
-// Get products in a category
 export const getCategoryProducts = async (id) => {
   const response = await api.get(`/categories/${id}/products/`);
   return response.data;

@@ -16,7 +16,6 @@ const HomePage = () => {
 
   const loadFeaturedProducts = async () => {
     try {
-      // جلب آخر 8 منتجات تم إنشاؤها
       const data = await getAllProducts({ ordering: '-created_at' });
       setFeaturedProducts(data.slice(0, 8));
     } catch (error) {
@@ -32,8 +31,8 @@ const HomePage = () => {
         className="bg-gray-900 text-white relative overflow-hidden"
         style={{
           backgroundImage: `url(${heroPattern})`, 
-          backgroundSize: '1500px 1500px', 
-          backgroundRepeat: 'repeat',
+          backgroundSize: 'cover' ,
+          backgroundRepeat: 'no-repeat',
         }}
       >
         
@@ -115,7 +114,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* قسم المنتجات المميزة الجديد */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
@@ -123,7 +121,7 @@ const HomePage = () => {
           </h2>
 
           {loading ? (
-            <Loading /> // عرض مؤشر التحميل أثناء جلب المنتجات
+            <Loading />
           ) : featuredProducts.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
               {featuredProducts.map((product) => (

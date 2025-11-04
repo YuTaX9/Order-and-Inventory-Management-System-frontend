@@ -155,7 +155,7 @@ const CartPage = () => {
                     <img
                       src={
                         item.image_url ||
-                        "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200"
+                        "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
                       }
                       alt={item.name}
                       className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-lg"

@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { CartContext } from "../../context/CartContext";
-import logoImage from "../../assets/logo.svg"; // تأكد من مسار اللوجو الصحيح
+import logoImage from "../../assets/logo.svg";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -23,19 +23,17 @@ const Navbar = () => {
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <img
               src={logoImage}
               alt="InventoryHub Logo"
-              className="h-10 w-auto"
+              className="h-16 w-auto"
             />
             <span className="text-xl font-bold text-gradient hidden sm:block">
               InventoryHub
             </span>
           </Link>
 
-          {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             <Link
               to="/"
@@ -128,7 +126,6 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
             className="md:hidden p-2 rounded-lg hover:bg-gray-100"
