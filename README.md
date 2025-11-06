@@ -200,6 +200,20 @@ npm run build
 The built files will be in the `dist/` directory.
 
 ### Docker Setup
+```bash
+FROM node:lts-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+EXPOSE 5173
+
+CMD ["npm", "run", "dev", "--", "--host"]
+```
 
 4. **Access the application:**
 - Frontend: `http://localhost:5173/`
